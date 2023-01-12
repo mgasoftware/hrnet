@@ -17,7 +17,7 @@ export default function Header() {
                 <NavLink to="/create" className="hrnet-headerCreateEmploye">
                     <p>Create Employee</p>
                 </NavLink>
-                <NavLink to="/" className="hrnet-headerListEmploye">
+                <NavLink to="/employee" className="hrnet-headerListEmploye">
                     <p>Employee List</p>
                 </NavLink>
             </div>

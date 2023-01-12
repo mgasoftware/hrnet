@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 
 import logo from '../../assets/logo.jpg'
 import '../../styles/Home.css';
@@ -7,7 +7,7 @@ import DateSelect from '../Features/DateSelect';
 
 export default function Home() {
     const [date, setDate] = useState(new Date());
-    console.log(date.toLocaleDateString("en-US"));
+
     return (
         <div className="hrnet-home">
             <Header />

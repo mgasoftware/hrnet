@@ -9,7 +9,7 @@ export default function DateSelect(props) {
 
     return (
         <div className="hrnet-dateselect">
-            <p>{props.title}</p>
+            <label htmlFor={props.title}>{props.title}</label>
             <input
                 name="date"
                 type="date"
