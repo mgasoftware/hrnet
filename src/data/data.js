@@ -116,11 +116,11 @@ export const States = [{
 },
 {
     value: 'NC',
-    label: 'North Carolina'
+    label: 'NCarolina'
 },
 {
     value: 'ND',
-    label: 'North Dakota'
+    label: 'NDakota'
 },
 {
     value: 'NE',
@@ -172,11 +172,11 @@ export const States = [{
 },
 {
     value: 'SC',
-    label: 'South Carolina'
+    label: 'SCarolina'
 },
 {
     value: 'SD',
-    label: 'South Dakota'
+    label: 'SDakota'
 },
 {
     value: 'TN',
@@ -237,3 +237,16 @@ export const Sales = [{
     label: 'Legal'
 }
 ]
+
+export const dataName =
+    [
+        "First Name",
+        "Last Name",
+        "Start Date",
+        "Departement",
+        "Date of Birth",
+        "Street",
+        "City",
+        "State",
+        "Zip Code",
+    ]

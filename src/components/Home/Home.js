@@ -7,7 +7,7 @@ import DateSelect from '../Features/DateSelect';
 
 export default function Home() {
     const [date, setDate] = useState(new Date());
-
+    console.log(new Date("8/01/1997"));
     return (
         <div className="hrnet-home">
             <Header />

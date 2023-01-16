@@ -1,15 +1,24 @@
-import React, {useContext} from 'react';
-
-import Header from '../Features/Header';
+import React, { useContext } from 'react';
 import { EmployeeContext } from '../../context/context';
+import { dataName } from '../../data/data';
+
+import '../../styles/EmployeeList.css'
+import Header from '../Features/Header';
+import TableView from '../Features/TableView';
 
 export default function EmployeeList() {
-    const {employees, setEmployee} = useContext(EmployeeContext)
-    console.log(employees)
+    let { employees, setEmployees } = useContext(EmployeeContext);
+    
     return (
         <div>
             <Header />
-            <h1>EmployeeList</h1>
+            <div className="hrnet-employee">
+                <h1>EmployeeList</h1>
+                <TableView
+                    columns={dataName}
+                    datas={employees}
+                    setDatas={setEmployees} />
+            </div>
         </div>
     )
 }

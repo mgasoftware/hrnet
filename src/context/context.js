@@ -1,40 +1,61 @@
 import { States, Sales } from "../data/data";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-export const employeesContext = [
+const employeesContext = [
     {
         firstName: 'Marc',
         lastName: 'Zucky',
-        birthdate: new Date("9/20/1977"),
-        startDate: new Date("10/29/2022"),
+        startDate: "10/29/2022",
+        department: Sales[0].label,
+        dateOfBirth: "09/20/1977",
         street: 'Bronx',
         city: 'Los Angeles',
-        state: States[0].label,
+        state: States[0].value,
         zipCode: '90001',
-        department: Sales[0].label,
     },
     {
         firstName: 'Aloy',
         lastName: 'James',
-        birthdate: new Date("8/01/1997"),
-        startDate: new Date("11/18/2020"),
+        startDate: "11/18/2020",
+        department: Sales[1].label,
+        dateOfBirth: "08/01/1997",
         street: 'Holliwood Boulevard',
         city: 'New York',
-        state: States[1].label,
+        state: States[1].value,
         zipCode: '90008',
-        department: Sales[1].label,
     },
     {
         firstName: 'Helena',
         lastName: 'Williams',
-        birthdate: new Date("2/14/1977"),
-        startDate: new Date("5/01/2022"),
+        startDate: "05/01/2022",
+        department: Sales[2].label,
+        dateOfBirth: "02/14/1977",
         street: 'Groove Street',
         city: 'Washington',
-        state: States[2].label,
+        state: States[6].value,
         zipCode: '90005',
-        department: Sales[2].label,
+    },
+    {
+        firstName: 'Carla',
+        lastName: 'Jones',
+        startDate: "07/15/2021",
+        department: Sales[3].label,
+        dateOfBirth: "03/13/1979",
+        street: 'Caronne Street',
+        city: 'Chicago',
+        state: States[9].value,
+        zipCode: '90009',
     },
 ]
 
-export const EmployeeContext = createContext(employeesContext);
+export const EmployeeContext = createContext();
+
+export default function EmployeeProvider({ children }) {
+    const [employees, setEmployees] = useState(employeesContext);
+
+    return (
+        <EmployeeContext.Provider value={{ employees, setEmployees }}>
+            {children}
+        </EmployeeContext.Provider>
+    )
+}
