@@ -7,6 +7,7 @@ export default function TableView(props) {
   const listColumn = Object.keys(props.datas[0]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const total = props.datas.length;
   const limit = 10;
   const indexOfLastData = currentPage * limit;
   const indexOfFirstData = indexOfLastData - limit;
@@ -18,34 +19,39 @@ export default function TableView(props) {
 
   const sorting = (column) => {
     if (order === "asc") {
-      const sorted = [...props.datas].sort((a, b) =>
-        a[column].toLowerCase() > b[column].toLowerCase() ? 1 : -1
+      const sorted = [...props.datas].sort((a, b) => {
+        if (a[column].includes("/")) {
+          return new Date(a[column]).getTime() - new Date(b[column]).getTime();
+        }
+        else return a[column].toLowerCase() > b[column].toLowerCase() ? 1 : -1
+      }
       )
       props.setDatas(sorted);
       setOrder("dsc");
     }
     if (order === "dsc") {
-      const sorted = [...props.datas].sort((a, b) =>
-        a[column].toLowerCase() < b[column].toLowerCase() ? 1 : -1
-      )
+      const sorted = [...props.datas].sort((a, b) => {
+        if (a[column].includes("/")) {
+          return new Date(b[column]).getTime() - new Date(a[column]).getTime() ;
+        }
+        else return a[column].toLowerCase() < b[column].toLowerCase() ? 1 : -1
+      })
       props.setDatas(sorted);
       setOrder("asc");
     }
   }
 
-  const Pagination = ({ currentPage, total, limit, onPageChange }) => {
-    const pagesCount = Math.ceil(total / limit);
-    const pages = range(1, pagesCount);
+  const Pagination = ({ currentPage, page, onPageChange, isDisabled }) => {
     return (
-      <ul className="pagination">
-        {pages.map((page) => (
-          <li key={page} className="table-paginationList">
-            <span className={`table-paginationListNum ${page === currentPage ? 'active' : ''}`} onClick={() => onPageChange(page)}>{page}</span>
-          </li>
-        ))}
-      </ul>
+      <li className="table-paginationList">
+        <span className={`table-paginationListNum ${page === currentPage ? 'active' : ''} ${isDisabled ? 'disabled' : ''}`} onClick={() => onPageChange(page)}>{page}</span>
+      </li>
     )
   }
+  const pagesCount = Math.ceil(total / limit);
+  const pages = range(1, pagesCount);
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === pages.length;
 
   return (
     <div className="table-container">
@@ -71,14 +77,40 @@ export default function TableView(props) {
       </table>
       <div className="table-pagination">
         <p>Showing {indexOfFirstData + 1} to {indexOfLastData} of {props.datas.length} entries</p>
-        <div className="table-paginationNav">
+        <ul className="table-paginationNav">
           <Pagination
             currentPage={currentPage}
-            total={props.datas.length}
-            limit={limit}
-            onPageChange={(page) => setCurrentPage(page)}
+            page="First"
+            onPageChange={() => setCurrentPage(1)}
+            isDisabled={isFirstPage}
           />
-        </div>
+          <Pagination
+            currentPage={currentPage}
+            page="Prev"
+            onPageChange={() => setCurrentPage(currentPage - 1)}
+            isDisabled={isFirstPage}
+          />
+          {pages.map((page) => (
+            <Pagination
+              currentPage={currentPage}
+              page={page}
+              key={page}
+              onPageChange={(page) => setCurrentPage(page)}
+            />
+          ))}
+          <Pagination
+            currentPage={currentPage}
+            page="Next"
+            onPageChange={() => setCurrentPage(currentPage + 1)}
+            isDisabled={isLastPage}
+          />
+          <Pagination
+            currentPage={currentPage}
+            page="Last"
+            onPageChange={() => setCurrentPage(pages.length)}
+            isDisabled={isLastPage}
+          />
+        </ul>
       </div>
     </div>
   )

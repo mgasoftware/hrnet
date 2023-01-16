@@ -34,10 +34,23 @@ td {
     justify-content: space-between;
 }
 
+.table-paginationNav {
+    display: flex;
+}
+
 .table-paginationList {
     padding-left: 5px;
 }
 
+.table-paginationListNum {
+    cursor: pointer;
+}
+
 .active {
     color: red;
+    pointer-events: none;
+}
+
+.disabled {
+    pointer-events: none;
 }
