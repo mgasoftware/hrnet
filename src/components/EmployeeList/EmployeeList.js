@@ -8,7 +8,7 @@ import TableView from '../Features/TableView';
 
 export default function EmployeeList() {
     let { employees, setEmployees } = useContext(EmployeeContext);
-    
+
     return (
         <div>
             <Header />
@@ -17,7 +17,8 @@ export default function EmployeeList() {
                 <TableView
                     columns={dataName}
                     datas={employees}
-                    setDatas={setEmployees} />
+                    setDatas={setEmployees}
+                />
             </div>
         </div>
     )
