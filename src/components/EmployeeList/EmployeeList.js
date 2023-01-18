@@ -13,7 +13,7 @@ export default function EmployeeList() {
         <div>
             <Header />
             <div className="hrnet-employee">
-                <h1>EmployeeList</h1>
+                <h1 className="hrnet-employeeTitle">EmployeeList</h1>
                 <TableView
                     columns={dataName}
                     datas={employees}

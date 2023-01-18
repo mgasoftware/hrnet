@@ -35,3 +35,7 @@ a {
     outline: none;
     text-decoration: none;
 }
+.active {
+  text-decoration: underline;
+  pointer-events: none;
+}

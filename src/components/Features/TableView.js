@@ -3,21 +3,24 @@ import React, { useState } from 'react';
 import '../../styles/TableView.css';
 
 export default function TableView(props) {
+  const {datas, columns, setDatas, pagesCutCount, limit} = props
   const [order, setOrder] = useState("asc");
   const listColumn = Object.keys(props.datas[0]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [activeFilter, setActiveFilter] = useState("");
 
+  const newPagesCutCount = props.pagesCutCount;
   const total = props.datas.length;
-  const limit = 10;
-  const indexOfLastData = currentPage * limit;
-  const indexOfFirstData = indexOfLastData - limit;
+  const indexOfLastData = currentPage * props.limit;
+  const indexOfFirstData = indexOfLastData - props.limit;
   const currentDatas = props.datas.slice(indexOfFirstData, indexOfLastData);
 
   const range = (start, end) => {
-    return [...Array(end).keys()].map((el) => el + start);
+    return [...Array(end - start).keys()].map((el) => el + start);
   };
 
-  const sorting = (column) => {
+  const sorting = (e, column) => {
+    setActiveFilter(e.target.innerText);
     if (order === "asc") {
       const sorted = [...props.datas].sort((a, b) => {
         if (a[column].includes("/")) {
@@ -44,14 +47,32 @@ export default function TableView(props) {
   const Pagination = ({ currentPage, page, onPageChange, isDisabled }) => {
     return (
       <li className="table-paginationList">
-        <span className={`table-paginationListNum ${page === currentPage ? 'active' : ''} ${isDisabled ? 'disabled' : ''}`} onClick={() => onPageChange(page)}>{page}</span>
+        <span className={`table-paginationListNum ${page === currentPage ? 'activePage' : ''} ${isDisabled ? 'disabled' : ''}`} onClick={() => onPageChange(page)}>{page}</span>
       </li>
     )
   }
-  const pagesCount = Math.ceil(total / limit);
-  const pages = range(1, pagesCount);
+
+  const pagesCount = Math.ceil(total / props.limit);
+
+  const getPagesCut = ({pagesCount, pagesCutCount, currentPage}) => {
+    const ceilling = Math.ceil(pagesCutCount / 2);
+    const floor = Math.floor(pagesCutCount / 2);
+
+    if(pagesCount < pagesCutCount) {
+      return {start: 1, end: pagesCount + 1}
+    } else if (currentPage >= 1 && currentPage <= ceilling) {
+      return {start: 1, end: pagesCutCount + 1}
+    } else if (currentPage + floor >= pagesCount) {
+      return {start: pagesCount - pagesCutCount + 1, end: pagesCount + 1}
+    } else {
+      return {start: currentPage - ceilling + 1, end: currentPage + floor + 1}
+    }
+  }
+
+  const pagesCut = getPagesCut({pagesCount, pagesCutCount: newPagesCutCount, currentPage});
+  const pages = range(pagesCut.start, pagesCut.end);
   const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === pages.length;
+  const isLastPage = currentPage === pagesCount;
 
   return (
     <div className="table-container">
@@ -60,7 +81,7 @@ export default function TableView(props) {
           <tr>
             {props.columns.map((column, index) => (
               <th key={column}>
-                <button onClick={() => sorting(listColumn[index])}>{column}</button>
+                <button className={`table-columnFilter ${props.columns[index] === activeFilter ? "activeFilter" : ""}`} onClick={(e) => sorting(e, listColumn[index])}>{column}</button>
               </th>
             ))}
           </tr>
@@ -76,7 +97,7 @@ export default function TableView(props) {
         </tbody>
       </table>
       <div className="table-pagination">
-        <p>Showing {indexOfFirstData + 1} to {indexOfLastData} of {props.datas.length} entries</p>
+        <p className="table-paginationText">Showing {indexOfFirstData + 1} to {indexOfLastData} of {props.datas.length} entries</p>
         <ul className="table-paginationNav">
           <Pagination
             currentPage={currentPage}
@@ -107,11 +128,15 @@ export default function TableView(props) {
           <Pagination
             currentPage={currentPage}
             page="Last"
-            onPageChange={() => setCurrentPage(pages.length)}
+            onPageChange={() => setCurrentPage(pagesCount)}
             isDisabled={isLastPage}
           />
         </ul>
       </div>
     </div>
   )
+}
+TableView.defaultProps = {
+  limit: "10",
+  pagesCutCount: 5
 }

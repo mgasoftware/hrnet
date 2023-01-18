@@ -22,16 +22,32 @@ button {
     background: none;
 }
 th {
+    text-align: center;
     background-color: #70880c;
 }
 
 td {
+    text-align: center;
     background-color: rgba(151, 153, 108, 0.6);
+}
+
+.table-columnFilter {
+    
+}
+
+.activeFilter {
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 .table-pagination {
     display: flex;
     justify-content: space-between;
+    margin-top: 15px;
+}
+
+.table-paginationText {
+    font-weight: 600;
 }
 
 .table-paginationNav {
@@ -44,11 +60,18 @@ td {
 
 .table-paginationListNum {
     cursor: pointer;
+    background: rgba(151, 153, 108, 0.6);
+    border-radius: 2px;
+    padding: 5px;
 }
 
-.active {
-    color: red;
-    pointer-events: none;
+.table-paginationListNum:hover {
+    text-decoration: underline;
+}
+
+.activePage {
+    text-decoration: underline;
+    font-weight: 600;
 }
 
 .disabled {
