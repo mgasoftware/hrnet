@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 
-import '../../styles/TableView.css';
+import '../../../styles/TableView.css';
+import Pagination from './Pagination';
+import { getPagesCut } from '../../utils/getPagesCut';
+import Dropdown from '../../Dropdown/Dropdown';
 
 export default function TableView(props) {
-  const {datas, columns, setDatas, pagesCutCount, limit} = props
+  const { datas, columns, setDatas, pagesCutCount, limit } = props;
   const [order, setOrder] = useState("asc");
-  const listColumn = Object.keys(props.datas[0]);
+  const listColumn = Object.keys(datas[0]);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeFilter, setActiveFilter] = useState("");
 
-  const newPagesCutCount = props.pagesCutCount;
-  const total = props.datas.length;
-  const indexOfLastData = currentPage * props.limit;
-  const indexOfFirstData = indexOfLastData - props.limit;
-  const currentDatas = props.datas.slice(indexOfFirstData, indexOfLastData);
+  const total = datas.length;
+  const indexOfLastData = currentPage * limit;
+  const indexOfFirstData = indexOfLastData - limit;
+  const currentDatas = datas.slice(indexOfFirstData, indexOfLastData);
 
   const range = (start, end) => {
     return [...Array(end - start).keys()].map((el) => el + start);
@@ -22,66 +24,47 @@ export default function TableView(props) {
   const sorting = (e, column) => {
     setActiveFilter(e.target.innerText);
     if (order === "asc") {
-      const sorted = [...props.datas].sort((a, b) => {
+      const sorted = [...datas].sort((a, b) => {
         if (a[column].includes("/")) {
           return new Date(a[column]).getTime() - new Date(b[column]).getTime();
         }
         else return a[column].toLowerCase() > b[column].toLowerCase() ? 1 : -1
       }
       )
-      props.setDatas(sorted);
+      setDatas(sorted);
       setOrder("dsc");
     }
     if (order === "dsc") {
-      const sorted = [...props.datas].sort((a, b) => {
+      const sorted = [...datas].sort((a, b) => {
         if (a[column].includes("/")) {
-          return new Date(b[column]).getTime() - new Date(a[column]).getTime() ;
+          return new Date(b[column]).getTime() - new Date(a[column]).getTime();
         }
         else return a[column].toLowerCase() < b[column].toLowerCase() ? 1 : -1
       })
-      props.setDatas(sorted);
+      setDatas(sorted);
       setOrder("asc");
     }
   }
 
-  const Pagination = ({ currentPage, page, onPageChange, isDisabled }) => {
-    return (
-      <li className="table-paginationList">
-        <span className={`table-paginationListNum ${page === currentPage ? 'activePage' : ''} ${isDisabled ? 'disabled' : ''}`} onClick={() => onPageChange(page)}>{page}</span>
-      </li>
-    )
-  }
-
-  const pagesCount = Math.ceil(total / props.limit);
-
-  const getPagesCut = ({pagesCount, pagesCutCount, currentPage}) => {
-    const ceilling = Math.ceil(pagesCutCount / 2);
-    const floor = Math.floor(pagesCutCount / 2);
-
-    if(pagesCount < pagesCutCount) {
-      return {start: 1, end: pagesCount + 1}
-    } else if (currentPage >= 1 && currentPage <= ceilling) {
-      return {start: 1, end: pagesCutCount + 1}
-    } else if (currentPage + floor >= pagesCount) {
-      return {start: pagesCount - pagesCutCount + 1, end: pagesCount + 1}
-    } else {
-      return {start: currentPage - ceilling + 1, end: currentPage + floor + 1}
-    }
-  }
-
-  const pagesCut = getPagesCut({pagesCount, pagesCutCount: newPagesCutCount, currentPage});
+  const pagesCount = Math.ceil(total / limit);
+  const pagesCut = getPagesCut({ pagesCount, pagesCutCount, currentPage });
   const pages = range(pagesCut.start, pagesCut.end);
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === pagesCount;
 
   return (
     <div className="table-container">
+      <Dropdown title="limit" datas={limit}/>
       <table>
         <thead>
           <tr>
-            {props.columns.map((column, index) => (
+            {columns.map((column, index) => (
               <th key={column}>
-                <button className={`table-columnFilter ${props.columns[index] === activeFilter ? "activeFilter" : ""}`} onClick={(e) => sorting(e, listColumn[index])}>{column}</button>
+                <button
+                  className={`table-columnFilter ${columns[index] === activeFilter ? "activeFilter" : ""}`}
+                  onClick={(e) => sorting(e, listColumn[index])}>
+                  {column}
+                </button>
               </th>
             ))}
           </tr>
@@ -97,7 +80,9 @@ export default function TableView(props) {
         </tbody>
       </table>
       <div className="table-pagination">
-        <p className="table-paginationText">Showing {indexOfFirstData + 1} to {indexOfLastData} of {props.datas.length} entries</p>
+        <p className="table-paginationText">
+          Showing {indexOfFirstData + 1} to {indexOfLastData} of {datas.length} entries
+        </p>
         <ul className="table-paginationNav">
           <Pagination
             currentPage={currentPage}

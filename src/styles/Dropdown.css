@@ -1,0 +1,30 @@
+.hrnet-dropdown {
+    min-width: 224px;
+    min-height: 70px;
+    position: relative;
+}
+
+.hrnet-dropdownSelection {
+    background-color: rgba(211, 220, 50, 0.6);
+    border-radius: 20px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.hrnet-dropdownList {
+    border-radius: 6px;
+    background-color: white;
+    position: absolute;
+    top: 100%;
+    min-width: 200px;
+}
+
+.hrnet-dropdownItem {
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.hrnet-dropdownItem:hover {
+    background-color: rgba(211, 220, 50, 0.6);
+    border-radius: 6px;
+}

@@ -4,10 +4,10 @@ import { dataName } from '../../data/data';
 
 import '../../styles/EmployeeList.css'
 import Header from '../Features/Header';
-import TableView from '../Features/TableView';
+import TableView from '../Features/TableView/TableView';
 
 export default function EmployeeList() {
-    let { employees, setEmployees } = useContext(EmployeeContext);
+    const { employees, setEmployees } = useContext(EmployeeContext);
 
     return (
         <div>

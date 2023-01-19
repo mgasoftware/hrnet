@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Dropdown, Form, Button } from 'react-bootstrap';
 
-import '../../styles/FormInfos.css'
+import '../../styles/FormInfos.css';
+import { dataStates, dataSales } from '../../data/data';
+import DateSelect from './DateSelect';
+import Dropdown from '../Dropdown/Dropdown.js';
 
 export default function FormInfos() {
   const [firstName, setFirstName] = useState('');
@@ -11,81 +13,122 @@ export default function FormInfos() {
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
   const [zipCode, setZipCode] = useState('');
+  const [state, setState] = useState('');
+  const [sale, setSale] = useState('');
+
+  const handleChange = (e) => {
+    console.log(`Date of birth: ${dateOfBirth.toLocaleDateString("en-US")} et Start Date: ${dateStart.toLocaleDateString("en-US")}`)
+    const { name, value } = e.target;
+
+    switch (name) {
+      case "firstName":
+        setFirstName(value);
+        break;
+
+      case "lastName":
+        setLastName(value);
+        break;
+
+      case "street":
+        setStreet(value);
+        break;
+
+      case "city":
+        setCity(value);
+        break;
+
+      case "zipCode":
+        setZipCode(value);
+        break;
+
+      default:
+        break;
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`${firstName} ${lastName} ${dateOfBirth} ${dateStart} ${street} ${city} ${zipCode}`)  
+    console.log(`Prenom: ${firstName} Nom: ${lastName} Birthday: ${dateOfBirth.toLocaleDateString("en-US")} StartDate: ${dateStart.toLocaleDateString("en-US")} State: ${state} Sale:${sale} Street: ${street} City: ${city} Zip: ${zipCode}`)
   }
 
   return (
     <div className="hrnet-formInfos">
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicText">
-          <Form.Label>First Name</Form.Label>
-          <Form.Control type="text" placeholder="Enter your first name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicText">
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control type="text" placeholder="Enter your last name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-        </Form.Group>
-        <Form.Group controlId="duedate">
-          <Form.Label>Date of birth</Form.Label>
-          <Form.Control
-            type="date"
-            name="duedate"
-            placeholder="Due date"
-            value={dateOfBirth}
-            onChange={(e) => setDateOfBirth(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group controlId="duedate">
-          <Form.Label>Start Date</Form.Label>
-          <Form.Control
-            type="date"
-            name="duedate"
-            placeholder="Due date"
-            value={dateStart}
-            onChange={(e) => setDateStart(e.target.value)}
-          />
-        </Form.Group>
-        <div className="hrnet-dropdown">
-          <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Street</Form.Label>
-            <Form.Control type="text" placeholder="Enter your street" value={street} onChange={(e) => setStreet(e.target.value)} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>City</Form.Label>
-            <Form.Control type="text" placeholder="Enter your city" value={city} onChange={(e) => setCity(e.target.value)} />
-          </Form.Group>
-          <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              State
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Zip Code</Form.Label>
-            <Form.Control type="text" placeholder="Enter your city" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
-          </Form.Group>
+      <div className="hrnet-formInfosName">
+        <div className="hrnet-formInfosNameInput">
+          <p className="hrnet-formInfosNameTitle">First Name</p>
+          <input
+            className="hrnet-formInfosInputContainer"
+            name="firstName"
+            type="text"
+            placeholder="Your first name"
+            onChange={handleChange} />
         </div>
-        <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
-            Departement
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        <Button variant="primary" type="submit" onClick={handleSubmit}>
-          Submit
-        </Button>
-      </Form>
-    </div>
+        <div className="hrnet-formInfosNameInput">
+          <p className="hrnet-formInfosNameTitle">Last Name</p>
+          <input
+            className="hrnet-formInfosInputContainer"
+            name="lastName"
+            type="text"
+            placeholder="Your last name"
+            onChange={handleChange} />
+        </div>
+      </div>
+      <div className="hrnet-formInfosDate">
+        <DateSelect title="Date of Birth"
+          date={dateOfBirth}
+          setDate={setDateOfBirth} />
+        <DateSelect
+          title="Start Date"
+          date={dateStart}
+          setDate={setDateStart} />
+      </div>
+      <div className="hrnet-formInfosAddress">
+        <div className="hrnet-formInfosAddressStreetCity">
+          <div className="hrnet-formInfosNameInput">
+            <p className="hrnet-formInfosNameTitle">Street</p>
+            <input
+              className="hrnet-formInfosInputContainer"
+              name="street" type="text"
+              placeholder="Your street"
+              onChange={handleChange} />
+          </div>
+          <div className="hrnet-formInfosNameInput">
+            <p className="hrnet-formInfosNameTitle">City</p>
+            <input
+              className="hrnet-formInfosInputContainer"
+              name="city"
+              type="text"
+              placeholder="Your city"
+              onChange={handleChange} />
+          </div>
+        </div>
+        <div className="hrnet-formInfosCity">
+          <div className="hrnet-formInfosNameInput">
+            <p className="hrnet-formInfosNameTitle">State</p>
+            <Dropdown title="state" datas={dataStates} setItem={setState} />
+          </div>
+          <div className="hrnet-formInfosNameInput">
+            <p className="hrnet-formInfosNameTitle">Zip Code</p>
+            <input
+              className="hrnet-formInfosInputContainer"
+              name="zipCode"
+              type="text"
+              placeholder="Your zip code"
+              onChange={handleChange} />
+          </div>
+        </div>
+      </div>
+      <div className="hrnet-formInfosSale">
+        <div className="hrnet-formInfosNameInput">
+          <p className="hrnet-formInfosNameTitle">Sale</p>
+          <Dropdown title="sale" datas={dataSales} setItem={setSale} />
+        </div>
+      </div>
+      <input
+      className="hrnet-formInfosInput"
+      name="sumbit"
+      type="submit"
+      onClick={handleSubmit}/>
+    </div >
   )
 }

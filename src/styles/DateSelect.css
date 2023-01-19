@@ -1,6 +1,14 @@
 .hrnet-dateselect {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+}
+.hrnet-dateselectTitle{
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 18px;
+    margin-top: 18px;
+}
+input[type="date"] {
+    font-size: 20px;
+    padding-right: 10px;
 }

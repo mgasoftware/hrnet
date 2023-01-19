@@ -1,4 +1,38 @@
 .hrnet-formInfos {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    width: 80%;
+    margin: auto;
+    background-color: #faf8f8;
+    border: 1px solid #eff0f7;
+    box-shadow: 0px 5px 16px rgba(8, 15, 52, 0.06);
+    border-radius: 34px;
+}
+
+.hrnet-formInfosName, .hrnet-formInfosAddressStreetCity, .hrnet-formInfosCity, .hrnet-formInfosSale {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
+}
+
+.hrnet-formInfosNameTitle {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.hrnet-formInfosInputContainer {
+    border: 1px solid #eff0f7;
+    box-shadow: 0px 2px 6px rgba(19, 18, 66, 0.07);
+    border-radius: 20px;
+    min-width: 200px;
+    min-height: 66px;
+    padding-left: 20px;
+}
+
+.hrnet-formInfosDate {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
 }

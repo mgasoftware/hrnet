@@ -1,4 +1,4 @@
-export const States = [{
+export const dataStates = [{
     value: 'AK',
     label: 'Alaska'
 },
@@ -220,7 +220,7 @@ export const States = [{
 }
 ]
 
-export const Sales = [{
+export const dataSales = [{
     value: 'sales',
     label: 'Sales'
 },
