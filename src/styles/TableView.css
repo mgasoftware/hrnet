@@ -4,6 +4,11 @@
     gap: 10px;
     padding: 1rem;
 }
+.table-containerLimit {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 
 table {
     border-collapse: collapse;
@@ -22,7 +27,7 @@ button {
     background: none;
 }
 th {
-    text-align: center;
+    min-width: 100px;
     background-color: #70880c;
 }
 
@@ -32,12 +37,19 @@ td {
 }
 
 .table-columnFilter {
-    
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .activeFilter {
     font-weight: 600;
     text-decoration: underline;
+}
+.table-arrow{
+    width: 15px;
+    height: 15px;
 }
 
 .table-pagination {

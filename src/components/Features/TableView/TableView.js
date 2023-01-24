@@ -4,18 +4,23 @@ import '../../../styles/TableView.css';
 import Pagination from './Pagination';
 import { getPagesCut } from '../../utils/getPagesCut';
 import Dropdown from '../../Dropdown/Dropdown';
+import { search } from '../../utils/search';
+import arrowup from '../../../assets/arrow-up.svg'
+import arrowdown from '../../../assets/arrow-down.svg';
 
 export default function TableView(props) {
-  const { datas, columns, setDatas, pagesCutCount, limit } = props;
+  const { datas, columns, setDatas, pagesCutCount, limit, setLimit } = props;
   const [order, setOrder] = useState("asc");
   const listColumn = Object.keys(datas[0]);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeFilter, setActiveFilter] = useState("");
+  const limitChange = [{ value: "10", label: "10" }, { value: "25", label: "25" }, { value: "50", label: "50" }, { value: "100", label: "100" }];
+  const [query, setQuery] = useState("");
 
-  const total = datas.length;
+  const total = search(datas, query).length;
   const indexOfLastData = currentPage * limit;
   const indexOfFirstData = indexOfLastData - limit;
-  const currentDatas = datas.slice(indexOfFirstData, indexOfLastData);
+  const currentDatas = search(datas, query).slice(indexOfFirstData, indexOfLastData);
 
   const range = (start, end) => {
     return [...Array(end - start).keys()].map((el) => el + start);
@@ -54,7 +59,15 @@ export default function TableView(props) {
 
   return (
     <div className="table-container">
-      <Dropdown title="limit" datas={limit}/>
+      <div className="table-containerLimit">
+        <Dropdown title="limit" datas={limitChange} setItem={setLimit} />
+        <input
+          className="table-containerSearch"
+          name="search"
+          type="search"
+          placeholder="Search...."
+          onChange={(e) => setQuery(e.target.value)} />
+      </div>
       <table>
         <thead>
           <tr>
@@ -63,7 +76,8 @@ export default function TableView(props) {
                 <button
                   className={`table-columnFilter ${columns[index] === activeFilter ? "activeFilter" : ""}`}
                   onClick={(e) => sorting(e, listColumn[index])}>
-                  {column}
+                  <p>{column}</p>
+                  {columns[index] === activeFilter && (order === "asc" ? (<img className="table-arrow" src={arrowup} alt="arrow up" />) : (<img className="table-arrow" src={arrowdown} alt="arrow down" />))}
                 </button>
               </th>
             ))}
@@ -81,7 +95,7 @@ export default function TableView(props) {
       </table>
       <div className="table-pagination">
         <p className="table-paginationText">
-          Showing {indexOfFirstData + 1} to {indexOfLastData} of {datas.length} entries
+          Showing {indexOfFirstData + 1} to {indexOfLastData} of {search(datas, query).length} entries
         </p>
         <ul className="table-paginationNav">
           <Pagination

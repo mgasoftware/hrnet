@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { EmployeeContext } from '../../context/context';
 import { dataName } from '../../data/data';
 
@@ -8,6 +8,7 @@ import TableView from '../Features/TableView/TableView';
 
 export default function EmployeeList() {
     const { employees, setEmployees } = useContext(EmployeeContext);
+    const [limit, setLimit] = useState("10");
 
     return (
         <div>
@@ -18,6 +19,8 @@ export default function EmployeeList() {
                     columns={dataName}
                     datas={employees}
                     setDatas={setEmployees}
+                    limit={limit}
+                    setLimit={setLimit}
                 />
             </div>
         </div>
