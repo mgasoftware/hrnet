@@ -2,8 +2,7 @@ import React from 'react';
 
 import '../../styles/DateSelect.css'
 
-export default function DateSelect(props) {
-    const {setDate, title} = props;
+export default function DateSelect({setDate, title}) {
     const handleChange = (e) => {
         setDate(new Date(e.target.value));
     }

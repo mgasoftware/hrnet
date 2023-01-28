@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 
 import '../../styles/Dropdown.css';
 
-export default function Dropdown(props) {
-    const { title, datas, setItem } = props
+export default function Dropdown({ title, datas, setItem }) {
     const [isVisible, setIsVisible] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(null);
 

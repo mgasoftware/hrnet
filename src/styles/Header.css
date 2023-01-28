@@ -14,6 +14,7 @@
     display: flex;
     align-items: center;
     color: #70880c;
+    text-decoration: none;
 }
 
 .hrnet-headerLogo {

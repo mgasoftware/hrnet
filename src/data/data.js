@@ -250,3 +250,5 @@ export const dataName =
         "State",
         "Zip Code",
     ]
+
+    export const keys = ["firstName","lastName", "startDate", "department", "birthDate", "street", "city", "state", "postalZip"]

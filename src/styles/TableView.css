@@ -9,6 +9,9 @@
     justify-content: space-between;
     width: 100%;
 }
+.table-containerSearch {
+    border-radius: 5px;
+}
 
 table {
     border-collapse: collapse;
