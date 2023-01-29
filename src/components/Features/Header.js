@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from "prop-types";
 
 import logo from '../../assets/logo.jpg';
 import '../../styles/Header.css';
@@ -30,4 +31,8 @@ export default function Header({ title }) {
 
 Header.defaultProps = {
     title: "Home"
+}
+
+Header.propTypes = {
+    title: PropTypes.string
 }

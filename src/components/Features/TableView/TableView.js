@@ -3,16 +3,15 @@ import React, { useState } from 'react';
 import '../../../styles/TableView.css';
 import Pagination from './Pagination';
 import { getPagesCut } from './getPagesCut';
-import Dropdown from '../Dropdown';
 import arrowup from '../../../assets/arrow-up.svg'
 import arrowdown from '../../../assets/arrow-down.svg';
 
-export default function TableView({ datas, columns, setDatas, pagesCutCount, limit, setLimit, keys }) {
+export default function TableView({ datas, columns, setDatas, pagesCutCount, limitChange, keys }) {
   const [order, setOrder] = useState("asc");
+  const [limit, setLimit] = useState("10");
   const listColumn = Object.keys(datas[0]);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeFilter, setActiveFilter] = useState("");
-  const limitChange = [{ value: "10", label: "10" }, { value: "25", label: "25" }, { value: "50", label: "50" }, { value: "100", label: "100" }];
   const [query, setQuery] = useState("");
 
   const search = (datas, query, keys) => {
@@ -61,8 +60,16 @@ export default function TableView({ datas, columns, setDatas, pagesCutCount, lim
 
   return (
     <div className="table-container">
-      <div className="table-containerLimit">
-        <Dropdown title="limit" datas={limitChange} setItem={setLimit} />
+      <div className="table-containerLimitSearch">
+        <div className="table-containerLimit">
+          <p>Show</p>
+          <select name="limit" id="limit" className="table-containerSelect" onChange={(e) => setLimit(e.target.value)}>
+            {limitChange.map((value, index) => (
+              <option key={index} value={value}>{value}</option>
+            ))}
+          </select>
+          <p>entries</p>
+        </div>
         <input
           className="table-containerSearch"
           name="search"
@@ -138,6 +145,6 @@ export default function TableView({ datas, columns, setDatas, pagesCutCount, lim
   )
 }
 TableView.defaultProps = {
-  limit: "10",
+  limitChange: ["10", "25", "50", "100"],
   pagesCutCount: 5
 }

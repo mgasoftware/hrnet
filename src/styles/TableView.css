@@ -4,10 +4,17 @@
     gap: 10px;
     padding: 1rem;
 }
-.table-containerLimit {
+.table-containerLimitSearch {
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+.table-containerLimit {
+    display: flex;
+}
+.table-containerSelect {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 .table-containerSearch {
     border-radius: 5px;
