@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import '../../../styles/TableView.css';
 import Pagination from './Pagination';
 import { getPagesCut } from './getPagesCut';
-import Dropdown from '../../Dropdown/Dropdown';
+import Dropdown from '../Dropdown';
 import arrowup from '../../../assets/arrow-up.svg'
 import arrowdown from '../../../assets/arrow-down.svg';
 

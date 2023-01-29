@@ -22,6 +22,10 @@
     height: 80px;
 }
 
+.hrnet-headerTitle {
+    color: #70880c;
+}
+
 .hrnet-headerNav {
     display: flex;
     align-items: center;

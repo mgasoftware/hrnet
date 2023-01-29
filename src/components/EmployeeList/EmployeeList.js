@@ -12,7 +12,7 @@ export default function EmployeeList() {
 
     return (
         <div>
-            <Header />
+            <Header title="List of Employee"/>
             <div className="hrnet-employee">
                 <TableView
                     columns={dataName}

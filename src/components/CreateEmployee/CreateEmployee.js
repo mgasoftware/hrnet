@@ -18,7 +18,7 @@ export default function CreateEmployee() {
 
   return (
     <div>
-      <Header />
+      <Header title="Create Employee"/>
       <FormInfos toggleModal={toggleModal}/>
       <Modal
         isShowing={isCreateCompleted}

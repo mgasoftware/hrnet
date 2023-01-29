@@ -4,7 +4,7 @@ import { EmployeeContext } from '../../context/context';
 import '../../styles/FormInfos.css';
 import { dataStates, dataSales } from '../../data/data';
 import DateSelect from './DateSelect';
-import Dropdown from '../Dropdown/Dropdown.js';
+import Dropdown from './Dropdown.js';
 
 export default function FormInfos({ toggleModal }) {
   const { setEmployees } = useContext(EmployeeContext);

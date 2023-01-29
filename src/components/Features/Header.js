@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import logo from '../../assets/logo.jpg';
 import '../../styles/Header.css';
 
-export default function Header() {
+export default function Header({ title }) {
     return (
         <header className="hrnet-header">
             <div className="hrnet-headerMain">
@@ -12,6 +12,9 @@ export default function Header() {
                     <img src={logo} alt="logo hrnet" className="hrnet-headerLogo" />
                     <h1 className="hrnet-headerTitle">Hrnet</h1>
                 </NavLink>
+            </div>
+            <div className="hrnet-headerTitle">
+                <h2>{title}</h2>
             </div>
             <div className="hrnet-headerNav">
                 <NavLink to="/create" className="hrnet-headerCreateEmploye">
@@ -23,4 +26,8 @@ export default function Header() {
             </div>
         </header>
     )
+}
+
+Header.defaultProps = {
+    title: "Home"
 }
