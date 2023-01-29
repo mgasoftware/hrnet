@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 
 import { EmployeeContext } from '../../context/context';
 import '../../styles/FormInfos.css';
@@ -6,30 +6,30 @@ import { dataStates, dataSales } from '../../data/data';
 import DateSelect from './DateSelect';
 import Dropdown from '../Dropdown/Dropdown.js';
 
-export default function FormInfos({toggleModal}) {
+export default function FormInfos({ toggleModal }) {
   const { setEmployees } = useContext(EmployeeContext);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const firstName = useRef();
+  const lastName = useRef();
+  const street = useRef();
+  const city = useRef();
+  const zipCode = useRef();
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [dateStart, setDateStart] = useState(new Date());
-  const [street, setStreet] = useState('');
-  const [city, setCity] = useState('');
-  const [zipCode, setZipCode] = useState('');
   const [state, setState] = useState('');
   const [sale, setSale] = useState('');
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newEmployee = {
-      "firstName": firstName,
-      "lastName": lastName,
+      "firstName": firstName.current?.value,
+      "lastName": lastName.current?.value,
       "startDate": dateStart.toLocaleDateString(),
       "department": sale,
       "birthDate": dateOfBirth.toLocaleDateString(),
-      "street": street,
-      "city": city,
+      "street": street.current?.value,
+      "city": city.current?.value,
       "state": state,
-      "postalZip": zipCode
+      "postalZip": zipCode.current?.value
     }
     setEmployees(employees => [...employees, newEmployee]);
     toggleModal();
@@ -46,7 +46,7 @@ export default function FormInfos({toggleModal}) {
               name="firstName"
               type="text"
               placeholder="Your first name"
-              onChange={e => setFirstName(e.target.value)} />
+              ref={firstName} />
           </div>
           <div className="hrnet-formInfosNameInput">
             <p className="hrnet-formInfosNameTitle">Last Name</p>
@@ -55,7 +55,7 @@ export default function FormInfos({toggleModal}) {
               name="lastName"
               type="text"
               placeholder="Your last name"
-              onChange={e => setLastName(e.target.value)} />
+              ref={lastName}/>
           </div>
         </div>
         <div className="hrnet-formInfosDate">
@@ -75,7 +75,7 @@ export default function FormInfos({toggleModal}) {
                 className="hrnet-formInfosInputContainer"
                 name="street" type="text"
                 placeholder="Your street"
-                onChange={e => setStreet(e.target.value)} />
+                ref={street} />
             </div>
             <div className="hrnet-formInfosNameInput">
               <p className="hrnet-formInfosNameTitle">City</p>
@@ -84,7 +84,7 @@ export default function FormInfos({toggleModal}) {
                 name="city"
                 type="text"
                 placeholder="Your city"
-                onChange={e => setCity(e.target.value)} />
+                ref={city} />
             </div>
           </div>
           <div className="hrnet-formInfosCity">
@@ -99,7 +99,7 @@ export default function FormInfos({toggleModal}) {
                 name="zipCode"
                 type="text"
                 placeholder="Your zip code"
-                onChange={e => setZipCode(e.target.value)} />
+                ref={zipCode}/>
             </div>
           </div>
         </div>
@@ -110,11 +110,11 @@ export default function FormInfos({toggleModal}) {
           </div>
         </div>
       </div >
-      <input
+      <button
         className="hrnet-formInfosInputSubmit"
-        name="sumbit"
-        type="submit"
-        onClick={handleSubmit} />
+        onClick={handleSubmit}>
+        Send
+      </button>
     </div>
   )
 }

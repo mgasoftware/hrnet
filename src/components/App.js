@@ -1,23 +1,28 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router";
 
-import Home from "./Home/Home";
-import CreateEmployee from "./CreateEmployee/CreateEmployee";
-import EmployeeList from "./EmployeeList/EmployeeList";
 import EmployeeProvider from "../context/context";
+
+const Home = lazy(() => import('./Home/Home'));
+const CreateEmployee = lazy(() => import('./CreateEmployee/CreateEmployee'));
+const EmployeeList = lazy(() => import('./EmployeeList/EmployeeList'));
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Suspense><Home /></Suspense>} />
         <Route path="/create" element={
           <EmployeeProvider>
-            <CreateEmployee />
+            <Suspense>
+              <CreateEmployee />
+            </Suspense>
           </EmployeeProvider>} />
         <Route path="/employee" element={
           <EmployeeProvider>
-            <EmployeeList />
+            <Suspense>
+              <EmployeeList />
+            </Suspense>
           </EmployeeProvider>} />
       </Routes>
     </div>

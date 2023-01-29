@@ -16,7 +16,6 @@ export default function Dropdown({ title, datas, setItem }) {
         <div className="hrnet-dropdown">
             <div className="hrnet-dropdownSelection" onClick={e => setIsVisible(!isVisible)}>
                 <p>{selectedIndex !== null ? datas[selectedIndex].label : `Select ${title}`}</p>
-                {isVisible}
             </div>
             {isVisible ? (
                 <div className="hrnet-dropdownList">
