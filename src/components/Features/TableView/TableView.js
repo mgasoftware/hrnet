@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from "prop-types";
 
 import '../../../styles/TableView.css';
 import Pagination from './Pagination';
@@ -144,7 +145,17 @@ export default function TableView({ datas, columns, setDatas, pagesCutCount, lim
     </div>
   )
 }
+
 TableView.defaultProps = {
   limitChange: ["10", "25", "50", "100"],
   pagesCutCount: 5
+}
+
+TableView.propTypes = {
+  datas: PropTypes.object.isRequired, 
+  columns: PropTypes.array.isRequired, 
+  setDatas: PropTypes.func.isRequired,
+  keys: PropTypes.array.isRequired,
+  pagesCutCount: PropTypes.number, 
+  limitChange: PropTypes.array, 
 }

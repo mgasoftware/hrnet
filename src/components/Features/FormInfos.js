@@ -1,5 +1,6 @@
 import React, { useState, useContext, useRef } from 'react';
 import { Alert } from 'react-bootstrap';
+import PropTypes from "prop-types";
 
 import { EmployeeContext } from '../../context/context';
 import '../../styles/FormInfos.css';
@@ -128,4 +129,8 @@ export default function FormInfos({ toggleModal }) {
       </button>
     </div>
   )
+}
+
+FormInfos.propTypes = {
+  toggleModal: PropTypes.func.isRequired
 }
