@@ -1,10 +1,12 @@
 import React, { useState, useContext, useRef } from 'react';
+import { Alert } from 'react-bootstrap';
 
 import { EmployeeContext } from '../../context/context';
 import '../../styles/FormInfos.css';
 import { dataStates, dataSales } from '../../data/data';
 import DateSelect from './DateSelect';
 import Dropdown from './Dropdown.js';
+import checkValidForm from '../utils/checkValidForm';
 
 export default function FormInfos({ toggleModal }) {
   const { setEmployees } = useContext(EmployeeContext);
@@ -13,31 +15,40 @@ export default function FormInfos({ toggleModal }) {
   const street = useRef();
   const city = useRef();
   const zipCode = useRef();
-  const [dateOfBirth, setDateOfBirth] = useState(new Date());
-  const [dateStart, setDateStart] = useState(new Date());
+  const [dateOfBirth, setDateOfBirth] = useState();
+  const [dateStart, setDateStart] = useState();
   const [state, setState] = useState('');
   const [sale, setSale] = useState('');
+  const [isValidForm, setIsValidForm] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newEmployee = {
       "firstName": firstName.current?.value,
       "lastName": lastName.current?.value,
-      "startDate": dateStart.toLocaleDateString(),
+      "startDate": dateStart?.toLocaleDateString(),
       "department": sale,
-      "birthDate": dateOfBirth.toLocaleDateString(),
+      "birthDate": dateOfBirth?.toLocaleDateString(),
       "street": street.current?.value,
       "city": city.current?.value,
       "state": state,
       "postalZip": zipCode.current?.value
     }
-    setEmployees(employees => [...employees, newEmployee]);
-    toggleModal();
+    if (checkValidForm(newEmployee)) {
+      setIsValidForm(true)
+      setEmployees(employees => [...employees, newEmployee]);
+      toggleModal();
+    }
+    else {
+      setIsValidForm(false);
+      window.scrollTo(0, 0);
+    }
   }
 
   return (
     <div className="hrnet-formInfosContainer">
       <div className="hrnet-formInfos">
+        {!isValidForm && <Alert className="hrnet-formInfosError" variant="danger" style={{ color: "red", padding: "1em" }}>Fill the form please !</Alert>}
         <div className="hrnet-formInfosName">
           <div className="hrnet-formInfosNameInput">
             <p className="hrnet-formInfosNameTitle">First Name</p>
@@ -55,7 +66,7 @@ export default function FormInfos({ toggleModal }) {
               name="lastName"
               type="text"
               placeholder="Your last name"
-              ref={lastName}/>
+              ref={lastName} />
           </div>
         </div>
         <div className="hrnet-formInfosDate">
@@ -99,7 +110,7 @@ export default function FormInfos({ toggleModal }) {
                 name="zipCode"
                 type="text"
                 placeholder="Your zip code"
-                ref={zipCode}/>
+                ref={zipCode} />
             </div>
           </div>
         </div>
