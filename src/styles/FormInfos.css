@@ -70,4 +70,7 @@
 }
 .hrnet-formInfosError {
     text-align: center;
+    background-color: red;
+    border-top-left-radius: 34px;
+    border-top-right-radius: 34px;
 }

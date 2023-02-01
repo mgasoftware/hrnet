@@ -49,7 +49,7 @@ export default function FormInfos({ toggleModal }) {
   return (
     <div className="hrnet-formInfosContainer">
       <div className="hrnet-formInfos">
-        {!isValidForm && <Alert className="hrnet-formInfosError" variant="danger" style={{ color: "red", padding: "1em" }}>Fill the form please !</Alert>}
+        {!isValidForm && <Alert className="hrnet-formInfosError" variant="danger" style={{ color: "white", padding: "1em" }}>Fill the form please !</Alert>}
         <div className="hrnet-formInfosName">
           <div className="hrnet-formInfosNameInput">
             <p className="hrnet-formInfosNameTitle">First Name</p>
