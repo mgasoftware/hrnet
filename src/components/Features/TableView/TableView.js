@@ -35,7 +35,7 @@ export default function TableView({ datas, columns, setDatas, pagesCutCount, lim
     if (order === "asc") {
       const sorted = [...datas].sort((a, b) => {
         if (a[column].includes("/")) {
-          return new Date(a[column]).getTime() - new Date(b[column]).getTime();
+          return new Date(a[column]) - new Date(b[column]);
         }
         else return a[column].toLowerCase() > b[column].toLowerCase() ? 1 : -1
       }
@@ -46,7 +46,7 @@ export default function TableView({ datas, columns, setDatas, pagesCutCount, lim
     else if (order === "dsc") {
       const sorted = [...datas].sort((a, b) => {
         if (a[column].includes("/")) {
-          return new Date(b[column]).getTime() - new Date(a[column]).getTime();
+          return new Date(b[column]) - new Date(a[column]);
         }
         else return a[column].toLowerCase() < b[column].toLowerCase() ? 1 : -1
       })
