@@ -6,6 +6,7 @@ import Pagination from './Pagination';
 import { getPagesCut } from './getPagesCut';
 import arrowup from '../../../assets/arrow-up.svg'
 import arrowdown from '../../../assets/arrow-down.svg';
+import { styles } from './styles';
 
 export default function TableView({ datas, columns, setDatas, pagesCutCount, limitChange, keys }) {
   const [order, setOrder] = useState("asc");
@@ -30,6 +31,7 @@ export default function TableView({ datas, columns, setDatas, pagesCutCount, lim
 
   const sorting = (e, column) => {
     setActiveFilter(e.target.innerText);
+
     if (order === "asc") {
       const sorted = [...datas].sort((a, b) => {
         if (a[column].includes("/")) {
@@ -41,7 +43,7 @@ export default function TableView({ datas, columns, setDatas, pagesCutCount, lim
       setDatas(sorted);
       setOrder("dsc");
     }
-    if (order === "dsc") {
+    else if (order === "dsc") {
       const sorted = [...datas].sort((a, b) => {
         if (a[column].includes("/")) {
           return new Date(b[column]).getTime() - new Date(a[column]).getTime();
@@ -60,11 +62,11 @@ export default function TableView({ datas, columns, setDatas, pagesCutCount, lim
   const isLastPage = currentPage === pagesCount;
 
   return (
-    <div className="table-container">
-      <div className="table-containerLimitSearch">
-        <div className="table-containerLimit">
+    <div style={styles.tableContainer}>
+      <div className="table-containerLimitSearch" style={styles.tableContainerLimitSearch}>
+        <div className="table-containerLimit" style={styles.tableContainerLimit}>
           <p>Show</p>
-          <select name="limit" id="limit" className="table-containerSelect" onChange={(e) => setLimit(e.target.value)}>
+          <select name="limit" id="limit" className="table-containerSelect" style={styles.tableContainerSelect} onChange={(e) => setLimit(e.target.value)}>
             {limitChange.map((value, index) => (
               <option key={index} value={value}>{value}</option>
             ))}
@@ -72,11 +74,15 @@ export default function TableView({ datas, columns, setDatas, pagesCutCount, lim
           <p>entries</p>
         </div>
         <input
+          style={styles.tableContainerSearch}
           className="table-containerSearch"
           name="search"
           type="search"
           placeholder="Search...."
-          onChange={(e) => setQuery(e.target.value.toLowerCase())} />
+          onChange={(e) => {
+            setQuery(e.target.value.toLowerCase())
+            setCurrentPage(1);
+            }} />
       </div>
       <table>
         <thead>
@@ -84,7 +90,7 @@ export default function TableView({ datas, columns, setDatas, pagesCutCount, lim
             {columns.map((column, index) => (
               <th key={column}>
                 <button
-                  className={`table-columnFilter ${columns[index] === activeFilter ? "activeFilter" : ""}`}
+                  style={column[index] === activeFilter ? styles.activeFilter : styles.tableColumnFilter}
                   onClick={(e) => sorting(e, listColumn[index])}>
                   <p>{column}</p>
                   {columns[index] === activeFilter && (order === "asc" ? (<img className="table-arrow" src={arrowup} alt="arrow up" />) : (<img className="table-arrow" src={arrowdown} alt="arrow down" />))}
@@ -103,11 +109,11 @@ export default function TableView({ datas, columns, setDatas, pagesCutCount, lim
           ))}
         </tbody>
       </table>
-      <div className="table-pagination">
-        <p className="table-paginationText">
+      <div className="table-pagination" style={styles.tablePagination}>
+        <p className="table-paginationText" style={styles.tablePaginationText}>
           Showing {indexOfFirstData + 1} to {indexOfLastData} of {search(datas, query, keys).length} entries
         </p>
-        <ul className="table-paginationNav">
+        <ul className="table-paginationNav" style={styles.tablePaginationNav}>
           <Pagination
             currentPage={currentPage}
             page="First"
@@ -152,10 +158,10 @@ TableView.defaultProps = {
 }
 
 TableView.propTypes = {
-  datas: PropTypes.object.isRequired, 
-  columns: PropTypes.array.isRequired, 
+  datas: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
   setDatas: PropTypes.func.isRequired,
   keys: PropTypes.array.isRequired,
-  pagesCutCount: PropTypes.number, 
-  limitChange: PropTypes.array, 
+  pagesCutCount: PropTypes.number,
+  limitChange: PropTypes.array,
 }

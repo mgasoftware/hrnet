@@ -940,67 +940,7 @@ const employeesContext = [{
     "city": "South Lake Tahoe",
     "state": "California",
     "postalZip": "96154"
-  }, {
-    "firstName": "Fielding",
-    "lastName": "Goodhall",
-    "startDate": "12/14/2002",
-    "department": "Training",
-    "birthDate": "07/30/1981",
-    "street": "Kensington",
-    "city": "Dayton",
-    "state": "Ohio",
-    "postalZip": "45414"
-  }, {
-    "firstName": "Ly",
-    "lastName": "Traske",
-    "startDate": "08/27/1990",
-    "department": "Support",
-    "birthDate": "08/11/2010",
-    "street": "Dunning",
-    "city": "Kansas City",
-    "state": "Missouri",
-    "postalZip": "64114"
-  }, {
-    "firstName": "Nowell",
-    "lastName": "Thursby",
-    "startDate": "04/16/1993",
-    "department": "Sales",
-    "birthDate": "09/14/2014",
-    "street": "Elka",
-    "city": "Oklahoma City",
-    "state": "Oklahoma",
-    "postalZip": "73173"
-  }, {
-    "firstName": "Almire",
-    "lastName": "Carss",
-    "startDate": "05/10/2012",
-    "department": "Business Development",
-    "birthDate": "07/25/2001",
-    "street": "Monica",
-    "city": "Detroit",
-    "state": "Michigan",
-    "postalZip": "48295"
-  }, {
-    "firstName": "Corissa",
-    "lastName": "Thurman",
-    "startDate": "10/07/1996",
-    "department": "Engineering",
-    "birthDate": "03/12/2019",
-    "street": "Marquette",
-    "city": "Birmingham",
-    "state": "Alabama",
-    "postalZip": "35205"
-  }, {
-    "firstName": "Mano",
-    "lastName": "Adanet",
-    "startDate": "06/17/2003",
-    "department": "Sales",
-    "birthDate": "05/07/1986",
-    "street": "Sloan",
-    "city": "Glendale",
-    "state": "California",
-    "postalZip": "91210"
-  }
+  }, 
 ]
 
 export const EmployeeContext = createContext();
