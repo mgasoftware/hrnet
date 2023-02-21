@@ -1,8 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router";
 
-import EmployeeProvider from "../context/context";
-
 const Home = lazy(() => import('./Home/Home'));
 const CreateEmployee = lazy(() => import('./CreateEmployee/CreateEmployee'));
 const EmployeeList = lazy(() => import('./EmployeeList/EmployeeList'));
@@ -13,17 +11,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Suspense><Home /></Suspense>} />
         <Route path="/create" element={
-          <EmployeeProvider>
             <Suspense>
               <CreateEmployee />
-            </Suspense>
-          </EmployeeProvider>} />
+            </Suspense>} />
         <Route path="/employee" element={
-          <EmployeeProvider>
             <Suspense>
               <EmployeeList />
-            </Suspense>
-          </EmployeeProvider>} />
+            </Suspense>} />
       </Routes>
     </div>
   );

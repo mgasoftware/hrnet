@@ -1,16 +1,15 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Alert } from 'react-bootstrap';
 import PropTypes from "prop-types";
 
-import { EmployeeContext } from '../../context/context';
 import '../../styles/FormInfos.css';
 import { dataStates, dataSales } from '../../data/data';
 import DateSelect from './DateSelect';
 import Dropdown from './Dropdown.js';
 import checkValidForm from '../utils/checkValidForm';
+import { postDatas } from '../../api/postDatas';
 
 export default function FormInfos({ toggleModal }) {
-  const { setEmployees } = useContext(EmployeeContext);
   const firstName = useRef();
   const lastName = useRef();
   const street = useRef();
@@ -37,7 +36,7 @@ export default function FormInfos({ toggleModal }) {
     }
     if (checkValidForm(newEmployee)) {
       setIsValidForm(true)
-      setEmployees(employees => [...employees, newEmployee]);
+      postDatas("http://localhost:8080/employees", newEmployee)
       toggleModal();
     }
     else {
