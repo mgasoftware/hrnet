@@ -21,7 +21,7 @@
 
 ### Installing and launching front-end
 
-- Clone the front-end repository : `git clone https://github.com/mgasoftware/hrnet.git`
+- Clone the front-end repository : `git clone https://github.com/mgasoftware/hrnet`
 - Move to this folder : `cd hrnet`
 - Install dependencies : `npm install`
 - Launch front-end on port 3000: `npm start`
