@@ -19,7 +19,7 @@ export default function EmployeeList() {
     if (loading || employees === undefined) {
         return (
             <div>
-                <Header title="List of Employee" />
+                <Header title="Current Employees" />
                 {error && <div className='info'><p className='error'>{error.message}</p></div>}
                 <div className="loader-container">
                     <div className="spinner"></div>
