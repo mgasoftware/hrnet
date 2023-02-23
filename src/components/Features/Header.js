@@ -22,7 +22,7 @@ export default function Header({ title }) {
                     <p>Create Employee</p>
                 </NavLink>
                 <NavLink to="/employee" className="hrnet-headerListEmploye">
-                    <p>Employee List</p>
+                    <p>Current Employees</p>
                 </NavLink>
             </div>
         </header>
