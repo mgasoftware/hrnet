@@ -1,5 +1,17 @@
 # Hrnet
 
+## Project Description
+
+HRnet is an application for a company to manage human resources.
+
+It is a comprehensive system that allows for the creation, management, and tracking of employee-related information, including personal data, contact details, employment records, performance, benefits, leave, training, and more.
+
+HRnet application was based on jQuery, a popular JavaScript library for DOM manipulation and user interface interactions.
+
+However, due to evolving technologies and performance issues encountered with the jQuery plugins used, I have decided to convert it using React, a modern JavaScript library for building interactive user interfaces. The conversion of HRnet to React will improve the performance, stability, and maintainability of the application. By employing functional programming principles and avoiding the use of classes, we will be able to create more modular, reusable, and easily testable React components.
+
+Additionally, by completely eliminating jQuery from the application, we can benefit from the advantages of a 100% React architecture without mixing the two frameworks.
+
 ## Installation
 
 ### Recommanded IDE
